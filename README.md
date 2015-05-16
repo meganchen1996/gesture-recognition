@@ -8,6 +8,10 @@ I used openni_tracker node from ros and listened for the transforms from the dif
 
 I want to implement even more gestures later on, but at last minute without my group since they dropped the class 3 days before the project due date, I tried my best to at least get the basic of recognizing any gesture for what it was. 
 
+Problems I ran into: setting up the right dependencies as well as figuring out which header files were needed and which frame to use to transform from (openni_depth_frame)
+
+A couple of minor compiler errors that had to do with not importing the right header files
+I expect to run into more problems once this becomes more complex
 
 
 To run this project: 
