@@ -1,0 +1,8 @@
+prefix=/home/meganc/gesture_recognition/install
+
+Name: gesture_recognition
+Description: Description of gesture_recognition
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/meganc/gesture_recognition/install/lib 
+Requires: 

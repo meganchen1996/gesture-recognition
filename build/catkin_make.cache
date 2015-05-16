@@ -1,0 +1,2 @@
+gesture_recognition
+-DCATKIN_DEVEL_PREFIX=/home/meganc/gesture_recognition/devel -DCMAKE_INSTALL_PREFIX=/home/meganc/gesture_recognition/install
