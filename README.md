@@ -18,3 +18,7 @@ To run this project:
 roscore in terminal
 rosrun openni_tracker openni_tracker
 roslaunch openni_launch openni.launch 
+
+Googledoc: 
+https://docs.google.com/document/d/1BLY7RBUDHI90GwJdErgqO3rfFTzVEaCWvWU4ApkWcn4/edit?usp=sharing
+
