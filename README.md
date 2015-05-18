@@ -19,6 +19,9 @@ roscore in terminal
 rosrun openni_tracker openni_tracker
 roslaunch openni_launch openni.launch 
 
+To run this node: 
+rosrun gesture_recognition gesture_recognition
+
 Googledoc: 
 https://docs.google.com/document/d/1BLY7RBUDHI90GwJdErgqO3rfFTzVEaCWvWU4ApkWcn4/edit?usp=sharing
 

@@ -33,7 +33,7 @@ int main(int argc, char** argv) {
   	
   	
   // Initialize ROS
-  ros::init (argc, argv, "gesture_recognition_fun");
+  ros::init (argc, argv, "gesture_recognition");
   ros::NodeHandle nh;
 
   
