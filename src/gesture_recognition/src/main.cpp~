@@ -9,16 +9,27 @@
 #include <time.h>
 #include <tf/tf.h>
 
+//two methods that will determine whether or not left arm or right arm were raised
+bool raiseLeftArm(tf::StampedTransform leftHandTransform, tf::StampedTransform headTransform) {
+      if(leftHandTransform.getOrigin().z() - headTransform.getOrigin().z() > .1) {
+	std::cout<<"The left arm is raised!"<<std::endl;
+	return true; 
+      } else {
+	return false;
+      }
+}
+
+bool raiseRightArm(tf::StampedTransform rightHandTransform, tf::StampedTransform headTransform) {
+      if(rightHandTransform.getOrigin().z() - headTransform.getOrigin().z() > .1) {
+	std::cout<<"The right arm is raised!"<<std::endl;
+	return true;
+      } else {
+	return false;
+      }
+}
 
 
 int main(int argc, char** argv) {
-  //*need a method that will find the gesture and record frames/joint positions
-  //*need a method that will get above joint positions and do ratio
-  //math on them to scale them to account for depth, height, width of person
-  //*need a method that will then compare and check if joints are within uncertainty
-  // --> also if MOST of the joints are within uncertainty, you can pass it, must 
-  // --> determine a threshold for what we consider to be passing
-  //if passed, move on to show next video 
   	
   	
   // Initialize ROS
@@ -64,23 +75,7 @@ int main(int argc, char** argv) {
   
   ros::Rate(10); 
   
-  bool raiseLeftArm(tf::StampedTransform leftHandTransform, tf::StampedTransform headTransform) {
-      if(leftHandTransform.getOrigin().z() - headTransform.getOrigin().z() > .1) {
-	std::cout<<"The left arm is raised!"<<std::endl;
-	return true; 
-      } else {
-	return false;
-      }
-}
-
-bool raiseRightArm(tf::StampedTransform rightHandTransform, tf::StampedTransform headTransform) {
-      if(rightHandTransform.getOrigin().z() - headTransform.getOrigin().z() > .1) {
-	std::cout<<"The right arm is raised!"<<std::endl;
-	return true;
-      } else {
-	return false;
-      }
-}
+  
   
   while(ros::ok()) {
     ros::spinOnce();
