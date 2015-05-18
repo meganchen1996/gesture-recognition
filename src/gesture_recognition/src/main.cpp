@@ -9,6 +9,7 @@
 #include <time.h>
 #include <tf/tf.h>
 
+//two methods that will determine whether or not left arm or right arm were raised
 bool raiseLeftArm(tf::StampedTransform leftHandTransform, tf::StampedTransform headTransform) {
       if(leftHandTransform.getOrigin().z() - headTransform.getOrigin().z() > .1) {
 	std::cout<<"The left arm is raised!"<<std::endl;
@@ -29,13 +30,6 @@ bool raiseRightArm(tf::StampedTransform rightHandTransform, tf::StampedTransform
 
 
 int main(int argc, char** argv) {
-  //*need a method that will find the gesture and record frames/joint positions
-  //*need a method that will get above joint positions and do ratio
-  //math on them to scale them to account for depth, height, width of person
-  //*need a method that will then compare and check if joints are within uncertainty
-  // --> also if MOST of the joints are within uncertainty, you can pass it, must 
-  // --> determine a threshold for what we consider to be passing
-  //if passed, move on to show next video 
   	
   	
   // Initialize ROS
@@ -85,7 +79,9 @@ int main(int argc, char** argv) {
   
   while(ros::ok()) {
     ros::spinOnce();
+    //look for all transforms 
     try {
+      headLsnr.waitForTransform("/openni_depth_frame", "/head", ros::Time(0), ros::Duration(1.0)); 
       headLsnr.lookupTransform("/openni_depth_frame", "/head", ros::Time(0), headTransform); 
       
     }
@@ -94,6 +90,7 @@ int main(int argc, char** argv) {
 			  ros::Duration(1.0).sleep();
 			}
     try {
+      neckLsnr.waitForTransform("/openni_depth_frame", "/neck", ros::Time(0), ros::Duration(1.0)); 
       neckLsnr.lookupTransform("/openni_depth_frame", "/neck", ros::Time(0), neckTransform); 
       
     }
@@ -102,7 +99,8 @@ int main(int argc, char** argv) {
 			  ros::Duration(1.0).sleep();
 			}
     try {
-      headLsnr.lookupTransform("/openni_depth_frame", "/torso", ros::Time(0), torsoTransform); 
+      torsoLsnr.waitForTransform("/openni_depth_frame", "/torso", ros::Time(0), ros::Duration(1.0)); 
+      torsoLsnr.lookupTransform("/openni_depth_frame", "/torso", ros::Time(0), torsoTransform); 
       
     }
     catch (tf::TransformException ex) {
@@ -110,6 +108,7 @@ int main(int argc, char** argv) {
 			  ros::Duration(1.0).sleep();
 			}
     try {
+      leftShoulderLsnr.waitForTransform("/openni_depth_frame", "/left_shoulder", ros::Time(0), ros::Duration(1.0));
       leftShoulderLsnr.lookupTransform("/openni_depth_frame", "/left_shoulder", ros::Time(0), leftShoulderTransform); 
       
     }
@@ -118,6 +117,7 @@ int main(int argc, char** argv) {
 			  ros::Duration(1.0).sleep();
 			}
     try {
+      leftElbowLsnr.waitForTransform("/openni_depth_frame", "/left_elbow", ros::Time(0), ros::Duration(1.0));
       leftElbowLsnr.lookupTransform("/openni_depth_frame", "/left_elbow", ros::Time(0), leftElbowTransform); 
       
     }
@@ -126,6 +126,7 @@ int main(int argc, char** argv) {
 			  ros::Duration(1.0).sleep();
 			}
     try {
+      rightShoulderLsnr.waitForTransform("/openni_depth_frame", "/right_shoulder", ros::Time(0), ros::Duration(1.0));
       rightShoulderLsnr.lookupTransform("/openni_depth_frame", "/right_shoulder", ros::Time(0), rightShoulderTransform); 
       
     }
@@ -134,6 +135,7 @@ int main(int argc, char** argv) {
 			  ros::Duration(1.0).sleep();
 			}
     try {
+      rightElbowLsnr.waitForTransform("/openni_depth_frame", "/right_elbow", ros::Time(0), ros::Duration(1.0));
       rightElbowLsnr.lookupTransform("/openni_depth_frame", "/right_elbow", ros::Time(0), rightElbowTransform); 
       
     }
@@ -142,6 +144,7 @@ int main(int argc, char** argv) {
 			  ros::Duration(1.0).sleep();
 			}
     try {
+      rightHandLsnr.waitForTransform("/openni_depth_frame", "/right_hand", ros::Time(0), ros::Duration(1.0));
       rightHandLsnr.lookupTransform("/openni_depth_frame", "/right_hand", ros::Time(0), rightHandTransform); 
       
     }
@@ -150,6 +153,7 @@ int main(int argc, char** argv) {
 			  ros::Duration(1.0).sleep();
 			}
     try {
+      leftHandLsnr.waitForTransform("/openni_depth_frame", "/left_hand", ros::Time(0), ros::Duration(1.0));
       leftHandLsnr.lookupTransform("/openni_depth_frame", "/left_hand", ros::Time(0), leftHandTransform); 
       
     }
@@ -158,6 +162,7 @@ int main(int argc, char** argv) {
 			  ros::Duration(1.0).sleep();
 			}
     try {
+      leftHipLsnr.waitForTransform("/openni_depth_frame", "/left_hip", ros::Time(0), ros::Duration(1.0));
       leftHipLsnr.lookupTransform("/openni_depth_frame", "/left_hip", ros::Time(0), leftHipTransform); 
       
     }
@@ -166,6 +171,7 @@ int main(int argc, char** argv) {
 			  ros::Duration(1.0).sleep();
 			}
     try {
+      rightHipLsnr.waitForTransform("/openni_depth_frame", "/right_hip", ros::Time(0), ros::Duration(1.0));
       rightHipLsnr.lookupTransform("/openni_depth_frame", "/right_hip", ros::Time(0), rightHipTransform); 
       
     }
@@ -174,6 +180,7 @@ int main(int argc, char** argv) {
 			  ros::Duration(1.0).sleep();
 			}
     try {
+      leftKneeLsnr.waitForTransform("/openni_depth_frame", "/left_knee", ros::Time(0), ros::Duration(1.0));
       leftKneeLsnr.lookupTransform("/openni_depth_frame", "/left_knee", ros::Time(0), leftKneeTransform); 
       
     }
@@ -182,6 +189,7 @@ int main(int argc, char** argv) {
 			  ros::Duration(1.0).sleep();
 			}
     try {
+      leftFootLsnr.waitForTransform("/openni_depth_frame", "/left_foot", ros::Time(0), ros::Duration(1.0));
       leftFootLsnr.lookupTransform("/openni_depth_frame", "/left_foot", ros::Time(0), leftFootTransform); 
       
     }
@@ -190,6 +198,7 @@ int main(int argc, char** argv) {
 			  ros::Duration(1.0).sleep();
 			}
     try {
+      rightFootLsnr.waitForTransform("/openni_depth_frame", "/right_foot", ros::Time(0), ros::Duration(1.0));
       rightFootLsnr.lookupTransform("/openni_depth_frame", "/right_foot", ros::Time(0), rightFootTransform); 
       
     }
