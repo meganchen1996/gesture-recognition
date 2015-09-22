@@ -43,16 +43,23 @@
   <build_depend>roscpp</build_depend>
   <build_depend>rospy</build_depend>
   <build_depend>std_msgs</build_depend>
+  <build_depend>libopenni-dev</build_depend>
+  <build_depend>libusb-1.0-dev</build_depend>
+  <build_depend>libopenni-sensor-primesense-dev</build_depend>
   <run_depend>roscpp</run_depend>
   <run_depend>rospy</run_depend>
   <run_depend>std_msgs</run_depend>
+  <run_depend>libopenni-dev</run_depend>
+  <run_depend>libusb-1.0-dev</run_depend>
+  <run_depend>libopenni-sensor-primesense-dev</run_depend>
+
 
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>
     <!-- You can specify that this package is a metapackage here: -->
     <!-- <metapackage/> -->
-
+ 	<cpp cflags="-I/usr/include/openni -I/usr/include/nite -I/usr/include/ni"/>
     <!-- Other tools can request additional information be placed here -->
 
   </export>
